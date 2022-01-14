@@ -5,12 +5,12 @@
   Time: 下午8:09
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Title</title>
 </head>
-<style type="text/css">
+<style>
     html{
         width: 100%;
         height: 100%;
@@ -37,15 +37,6 @@
         text-shadow:0 0 10px;
         letter-spacing: 1px;
         text-align: center;
-    }
-
-    #register{
-        position: absolute;
-        top: 50%;
-        left:50%;
-        margin: -150px 0 0 -150px;
-        width: 300px;
-        height: 300px;
     }
 
     #register h1{
@@ -107,7 +98,8 @@
           warning = "username or password wrong!";
         }
       %>
-    var flag = <%=flag%>;
+    const flag = <%=flag%>;
+
     if(flag!=null){
         alert("<%=warning%>");
     }

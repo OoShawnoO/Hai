@@ -14,6 +14,8 @@ public class LogFilter implements Filter{
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        filterChain.doFilter(request,response);
+        if(request.getServletPath().equals("/login.jsp")||request.getServletPath().equals("/Login")||request.getSession().getAttribute("permission").equals("1")){
+            filterChain.doFilter(request,response);
+        }
     }
 }

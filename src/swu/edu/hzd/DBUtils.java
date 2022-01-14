@@ -1,6 +1,7 @@
 package swu.edu.hzd;
 
 import javax.swing.text.html.HTMLDocument;
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,8 +51,8 @@ public class DBUtils {
         String sql;
         PreparedStatement ps;
 
-        if(table.equals("data")){
-            sql = "insert into data(good,unit,intro,amount,date) values(?,?,?,?,?)";
+        if(table.equals("record")){
+            sql = "insert into record(good,unit,intro,amount,date) values(?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1,dataItem.getGood());
             ps.setString(2,dataItem.getUnit());
@@ -74,7 +75,7 @@ public class DBUtils {
         Connection conn = ConnectPool.Connect();
         String sql;
         PreparedStatement ps;
-            if(table.equals("data")){
+            if(table.equals("reocrd")){
                 sql = "delete from ? where id= ?";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1,id);
@@ -87,5 +88,23 @@ public class DBUtils {
                 ps.execute();
             }
     }
+
+    public static ArrayList<User> Select_Users() throws SQLException {
+        Connection conn = ConnectPool.Connect();
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "select * from users";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery(sql);
+        while(rs.next()){
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setPermission(rs.getInt("permission"));
+            users.add(user);
+        }
+        return users;
+    }
+
 
 }
