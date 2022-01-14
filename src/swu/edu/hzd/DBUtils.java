@@ -29,21 +29,20 @@ public class DBUtils {
     public static ArrayList<DataItem> Select(String table,String order_by,String asc_or_desc,String search,int from,int limit) throws SQLException {
         ArrayList<DataItem> dataItems;
         Connection conn = ConnectPool.Connect();
-        String sql = "select * from ? order by ? ? where like ? limit ?,?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1,table);
         if(order_by.equals("")){order_by = "id";}
-        ps.setString(2,order_by);
         if(asc_or_desc.equals("")){asc_or_desc="asc";}
-        ps.setString(3,asc_or_desc);
-        ps.setString(4,search);
         if(from==-1){from=0;}
-        ps.setInt(5,from);
         if(limit==-1){limit=100;}
-        ps.setInt(6,limit);
+
+        String sql = "select * from "+table+" where good like '%"+search+"%' order by "+order_by+" "+asc_or_desc+" limit "+from+","+limit;
+        PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs =  ps.executeQuery();
         dataItems = Distribute(rs);
+        ps.close();
+        conn.close();
         return dataItems;
+
+
     }
 
     public static void Insert(String table,DataItem dataItem,User user) throws SQLException {
@@ -52,13 +51,14 @@ public class DBUtils {
         PreparedStatement ps;
 
         if(table.equals("record")){
-            sql = "insert into record(good,unit,intro,amount,date) values(?,?,?,?,?)";
+            sql = "insert into record(good,unit,intro,amount,date,imgsrc) values(?,?,?,?,?,'')";
             ps = conn.prepareStatement(sql);
             ps.setString(1,dataItem.getGood());
             ps.setString(2,dataItem.getUnit());
             ps.setString(3,dataItem.getIntro());
             ps.setFloat(4,dataItem.getAmount());
             ps.setString(5, dataItem.getDate());
+
             ps.execute();
         }
         else{
@@ -69,23 +69,29 @@ public class DBUtils {
             ps.setInt(4,user.getPermission());
             ps.execute();
         }
+        ps.close();
+        conn.close();
     }
 
     public static void Delete(String table,int id) throws SQLException {
         Connection conn = ConnectPool.Connect();
         String sql;
         PreparedStatement ps;
-            if(table.equals("reocrd")){
-                sql = "delete from ? where id= ?";
+            if(table.equals("record")){
+                sql = "delete from record where id= ?";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1,id);
                 ps.execute();
+                ps.close();
+                conn.close();
             }
-            else{
+            if(table.equals("users")){
                 sql = "delete from users where id= ?";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1,id);
                 ps.execute();
+                ps.close();
+                conn.close();
             }
     }
 
@@ -103,6 +109,8 @@ public class DBUtils {
             user.setPermission(rs.getInt("permission"));
             users.add(user);
         }
+        ps.close();
+        conn.close();
         return users;
     }
 
