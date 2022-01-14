@@ -2,10 +2,11 @@
   Created by IntelliJ IDEA.
   User: 小胡
   Date: 2022/1/14
-  Time: 14:27
+  Time: 16:14
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html dir="ltr" lang="en">
 
 <head>
@@ -23,10 +24,13 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-    <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
-    <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
@@ -79,7 +83,12 @@
             <!-- End Logo -->
             <!-- ============================================================== -->
             <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-
+                <ul class="navbar-nav d-none d-md-block d-lg-none">
+                    <li class="nav-item">
+                        <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                           href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    </li>
+                </ul>
                 <!-- ============================================================== -->
                 <!-- Right side toggle and nav items -->
                 <!-- ============================================================== -->
@@ -102,7 +111,7 @@
                     <li>
                         <a class="profile-pic" href="#">
                             <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                 class="img-circle"><span class="text-white font-medium">海</span></a>
+                                 class="img-circle"><span class="text-white font-medium">Steave</span></a>
                     </li>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
@@ -166,14 +175,13 @@
         <div class="page-breadcrumb bg-white">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">主面板</h4>
+                    <h4 class="page-title">进货目录</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <div class="d-md-flex">
                         <ol class="breadcrumb ms-auto">
-                            <li><a href="#" class="fw-normal">主面板</a></li>
+                            <li><a href="#" class="fw-normal">Dashboard</a></li>
                         </ol>
-
                     </div>
                 </div>
             </div>
@@ -187,71 +195,57 @@
         <!-- ============================================================== -->
         <div class="container-fluid">
             <!-- ============================================================== -->
-            <!-- Three charts -->
-            <!-- ============================================================== -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">本年度进货量</h3>
-                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li>
-                                <div id="sparklinedash"><canvas width="67" height="30"
-                                                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                </div>
-                            </li>
-                            <li class="ms-auto"><span class="counter text-success">659.1</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">本月度总进货量</h3>
-                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li>
-                                <div id="sparklinedash2"><canvas width="67" height="30"
-                                                                 style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                </div>
-                            </li>
-                            <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">本年度平均进货量</h3>
-                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li>
-                                <div id="sparklinedash3"><canvas width="67" height="30"
-                                                                 style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                </div>
-                            </li>
-                            <li class="ms-auto"><span class="counter text-info">911</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- PRODUCTS YEARLY SALES -->
+            <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-sm-12">
                     <div class="white-box">
-<%--                        <div class="d-md-flex">--%>
-<%--                            <ul class="list-inline d-flex ms-auto">--%>
-<%--                                <li class="ps-3">--%>
-<%--                                    <h5><i class="fa fa-circle me-1 text-info"></i>Mac</h5>--%>
-<%--                                </li>--%>
-<%--                                <li class="ps-3">--%>
-<%--                                    <h5><i class="fa fa-circle me-1 text-inverse"></i>Windows</h5>--%>
-<%--                                </li>--%>
-<%--                            </ul>--%>
-<%--                        </div>--%>
-                        <div id="main" style="height:800px;width: auto;"></div>
+                        <h3 class="box-title">进货目录</h3>
+                        <div class="table-responsive">
+                            <table class="table text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0">货物序号</th>
+                                    <th class="border-top-0">货物名称</th>
+                                    <th class="border-top-0">年货物进货量</th>
+                                    <th class="border-top-0">本月货物进货量</th>
+                                    <th class="border-top-0">备注</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Deshmukh</td>
+                                    <td>Prohaska</td>
+                                    <td>@Genelia</td>
+                                    <td>admin</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        <footer class="footer text-center"> 2022 © CopyRight Hu
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+                href="https://www.wrappixel.com/">wrappixel.com</a>
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
@@ -267,97 +261,16 @@
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
-</div>
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app-style-switcher.js"></script>
+<!--Wave Effects -->
+<script src="js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
 <script src="js/custom.js"></script>
-<script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
-<script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="js/pages/dashboards/dashboard1.js"></script>
-<script src="js/echarts.min.js"></script>
-<script>
-    var myChart = echarts.init(document.getElementById('main'));
-
-    option = {
-        title: {
-            text: 'Temperature Change in the Coming Week'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {},
-        toolbox: {
-            show: true,
-            feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
-                dataView: { readOnly: false },
-                magicType: { type: ['line', 'bar'] },
-                restore: {},
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value',
-            axisLabel: {
-                formatter: '{value} °C'
-            }
-        },
-        series: [
-            {
-                name: 'Highest',
-                type: 'line',
-                data: [10, 11, 13, 11, 12, 12, 9],
-                markPoint: {
-                    data: [
-                        { type: 'max', name: 'Max' },
-                        { type: 'min', name: 'Min' }
-                    ]
-                },
-                markLine: {
-                    data: [{ type: 'average', name: 'Avg' }]
-                }
-            },
-            {
-                name: 'Lowest',
-                type: 'line',
-                data: [1, -2, 2, 5, 3, 2, 0],
-                markPoint: {
-                    data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
-                },
-                markLine: {
-                    data: [
-                        { type: 'average', name: 'Avg' },
-                        [
-                            {
-                                symbol: 'none',
-                                x: '90%',
-                                yAxis: 'max'
-                            },
-                            {
-                                symbol: 'circle',
-                                label: {
-                                    position: 'start',
-                                    formatter: 'Max'
-                                },
-                                type: 'max',
-                                name: '最高点'
-                            }
-                        ]
-                    ]
-                }
-            }
-        ]
-    };
-    myChart.setOption(option);
-
-</script>
 </body>
 
 </html>
