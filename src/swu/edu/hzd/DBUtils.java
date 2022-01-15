@@ -2,11 +2,9 @@ package swu.edu.hzd;
 
 import javax.swing.text.html.HTMLDocument;
 import javax.xml.transform.Result;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DBUtils {
     public static ArrayList<DataItem> Distribute(ResultSet rs) throws SQLException {
@@ -35,11 +33,12 @@ public class DBUtils {
         if(limit==-1){limit=100;}
 
         String sql = "select * from "+table+" where good like '%"+search+"%' order by "+order_by+" "+asc_or_desc+" limit "+from+","+limit;
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs =  ps.executeQuery();
+        Statement ps = conn.createStatement();
+        ResultSet rs =  ps.executeQuery(sql);
         dataItems = Distribute(rs);
         ps.close();
         conn.close();
+
         return dataItems;
 
 
@@ -99,7 +98,7 @@ public class DBUtils {
         Connection conn = ConnectPool.Connect();
         ArrayList<User> users = new ArrayList<>();
         String sql = "select * from users";
-        PreparedStatement ps = conn.prepareStatement(sql);
+        Statement ps = conn.createStatement();
         ResultSet rs = ps.executeQuery(sql);
         while(rs.next()){
             User user = new User();

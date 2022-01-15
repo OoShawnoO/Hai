@@ -11,6 +11,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html dir="ltr" lang="en">
 
 <head>
@@ -58,7 +59,7 @@
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <a class="navbar-brand" href="dashboard.html">
+                <a class="navbar-brand" href="dashboard.jsp">
                     <!-- Logo icon -->
                     <b class="logo-icon">
                         <!-- Dark Logo icon -->
@@ -218,6 +219,7 @@
                                 }
                                 String search = request.getParameter("good");
                                 if(search==null){search="";}
+
                                 ArrayList<DataItem> arrayList = new ArrayList<>();
                                 try {
                                     arrayList = DBUtils.Select("record","","",search,-1,-1);
@@ -226,12 +228,15 @@
                                 }
                                 float max = 0;
                                 float month = 0;
-                                for(DataItem dataItem:arrayList){
 
-                                    if(dataItem.getDate().substring(0,4).equals(years)){
-                                        max = max + dataItem.getAmount();
-                                        if(dataItem.getDate().substring(5,7).equals(month2)){
-                                            month = month +dataItem.getAmount();
+                                if(!arrayList.isEmpty()) {
+                                    for (DataItem dataItem : arrayList) {
+
+                                        if (dataItem.getDate().substring(0, 4).equals(years)) {
+                                            max = max + dataItem.getAmount();
+                                            if (dataItem.getDate().substring(5, 7).equals(month2)) {
+                                                month = month + dataItem.getAmount();
+                                            }
                                         }
                                     }
                                 }
@@ -284,7 +289,7 @@
 <%--                                </li>--%>
 <%--                            </ul>--%>
 <%--                        </div>--%>
-                        <div id="main" style="height:800px;width: auto;"></div>
+                        <div id="main" style="height:800px;width:100%;"></div>
                     </div>
                 </div>
             </div>
@@ -317,6 +322,7 @@
 
         ArrayList<DataItem> dataItems = new ArrayList<>();
         dataItems = DBUtils.Select("record","","",search,0,10);
+
     %>
     var myChart = echarts.init(document.getElementById('main'));
 
@@ -344,31 +350,46 @@
             type: 'category',
             boundaryGap: false,
             data: [<%
-                for(DataItem dataItem:dataItems){
-                    out.print("'"+dataItem.getDate()+"',");
+                if(!dataItems.isEmpty()){
+                    for(DataItem dataItem:dataItems){
+                        out.print("'"+dataItem.getDate()+"',");
+                    }
+                }
+                else{
+                    out.print("无");
                 }
             %>]
         },
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} <%=dataItems.get(0).getUnit()%>'
+                formatter: '{value} <%if(!dataItems.isEmpty()){out.print(dataItems.get(0).getUnit());} else{out.print("无");}%>'
             }
         },
         series: [
             {
                 name: '<%
-                    if(search.equals("")){
-                        out.print("所有");
+                    if(!dataItems.isEmpty()){
+                        if(search.equals("")){
+                            out.print("所有");
+                        }
+                        else{
+                            out.print(dataItems.get(0).getGood());
+                        }
                     }
                     else{
-                        out.print(dataItems.get(0).getGood());
+                            out.print("无");
                     }
                 %>',
                 type: 'line',
                 data: [<%
-                for(DataItem dataItem:dataItems){
-                    out.print(dataItem.getAmount()+",");
+                if(!dataItems.isEmpty()){
+                    for(DataItem dataItem:dataItems){
+                        out.print(dataItem.getAmount()+",");
+                    }
+                }
+                else{
+                    out.print(0);
                 }
             %>],
                 markPoint: {
@@ -383,6 +404,10 @@
         ]
     };
     myChart.setOption(option);
+
+    window.addEventListener("resize",function(){
+        myChart.resize();
+    })
 
 </script>
 </body>
